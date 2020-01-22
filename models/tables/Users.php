@@ -38,6 +38,7 @@ class Users extends \yii\db\ActiveRecord
     /**
      * {@inheritdoc}
      */
+    
     public function attributeLabels()
     {
         return [
@@ -46,6 +47,14 @@ class Users extends \yii\db\ActiveRecord
             'name' => 'Name',
             'password' => 'Password',
             'role' => 'Role',
+        ];
+    }
+
+    public function fields() {
+        return [
+            'id',
+            'username' => 'login',
+            'password'
         ];
     }
 }
