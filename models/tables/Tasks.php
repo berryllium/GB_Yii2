@@ -48,12 +48,12 @@ class Tasks extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'title' => 'Title',
-            'description' => 'Description',
-            'creator_id' => 'creator ID',
-            'responsible_id' => 'Responsible ID',
-            'deadline' => 'Deadline',
-            'status_id' => 'Status ID',
+            'title' => 'Название',
+            'description' => 'Описание',
+            'creator_id' => 'Автор',
+            'responsible_id' => 'Ответственный',
+            'deadline' => 'Срок',
+            'status_id' => 'Статус',
         ];
     }
     public function getStatus() {
