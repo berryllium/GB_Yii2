@@ -1,7 +1,6 @@
 <?php
 
 namespace app\models;
-use yii\helpers\VarDumper;
 use app\models\tables\Users;
 
 class User extends \yii\base\BaseObject implements \yii\web\IdentityInterface
@@ -28,6 +27,14 @@ class User extends \yii\base\BaseObject implements \yii\web\IdentityInterface
      * {@inheritdoc}
      */
 
+    public static function findIdentityByAccessToken($token, $type = null)
+    {
+        if ($user = Users::findOne(['token' => $token])) {
+            return new static($user->toArray());
+        }
+        return null;
+    }
+
     /**
      * Finds user by username
      *
@@ -39,7 +46,6 @@ class User extends \yii\base\BaseObject implements \yii\web\IdentityInterface
         
         if ($user = Users::findOne(['login' => $username])) {
             return new static($user->toArray());
-            exit;
         }
         return null;
     }

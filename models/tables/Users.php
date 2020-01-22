@@ -43,10 +43,10 @@ class Users extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'login' => 'Login',
-            'name' => 'Name',
-            'password' => 'Password',
-            'role' => 'Role',
+            'login' => 'Логин',
+            'name' => 'Имя',
+            'password' => 'Пароль',
+            'role' => 'Категория',
         ];
     }
 

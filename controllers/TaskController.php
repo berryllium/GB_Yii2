@@ -43,4 +43,7 @@ class TaskController extends Controller
     ];
     return $this->render('card', $params);
   }
+  public function actionInfo() {
+    $this->render('info');
+  }
 }
