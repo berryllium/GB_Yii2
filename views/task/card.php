@@ -1,3 +1,10 @@
-<h2>Задача №<?= $task->id?></h2>
-<h3><?= $task->name ?></h3>
-<a href="/task/">Назад</a>
+<?php 
+
+use app\widgets\Task;
+use \yii\helpers\Html;
+
+echo Task::widget([
+    'id' => $model->id,
+    'title' => $model->title,
+    'description' => $model->description
+]);
