@@ -8,3 +8,7 @@ echo Task::widget([
     'title' => $model->title,
     'description' => $model->description
 ]);
+
+echo Html::tag('a', 'Назад', [
+  'href' => '/task'
+]);
