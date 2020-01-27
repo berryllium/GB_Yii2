@@ -4,6 +4,7 @@ namespace app\controllers;
 
 use Yii;
 use app\models\tables\Tasks;
+use app\models\tables\Users;
 use app\models\filters\TasksFilter;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -65,6 +66,15 @@ class TasksAdminController extends Controller
     public function actionCreate()
     {
         $model = new Tasks();
+        $model->on(Tasks::EVENT_AFTER_INSERT, function ($event) {
+            $to = Users::findOne($event->sender->responsible_id)->email;
+            Yii::$app->mailer->compose()
+                ->setFrom('from@domain.com')
+                ->setTo($to)
+                ->setSubject($event->sender->title)
+                ->setTextBody($event->sender->description)
+                ->send();
+        });
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
