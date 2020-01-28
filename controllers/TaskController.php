@@ -15,6 +15,6 @@ class TaskController extends Controller
   public function actionCard($id) {
     $model = new Tasks();
     $model = $model->findOne(['id' => $id]);
-    return $this->render('info', ['model' => $model]);
+    return $this->render('card', ['model' => $model]);
   }
 }

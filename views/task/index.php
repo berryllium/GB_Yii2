@@ -15,6 +15,6 @@ $dataProvider = new ActiveDataProvider([
 
 echo ListView::widget([
   'dataProvider' => $dataProvider,
-  'itemView' => 'card.php',
+  'itemView' => 'info.php',
   'options' => ['tag' => 'section', 'class' => 'list']
 ]);
