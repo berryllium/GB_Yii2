@@ -9,6 +9,8 @@ use yii\web\Response;
 use yii\filters\VerbFilter;
 use app\models\LoginForm;
 use app\models\ContactForm;
+use yii\filters\HttpCache;
+use yii\filters\PageCache;
 
 class SiteController extends Controller
 {
@@ -18,6 +20,18 @@ class SiteController extends Controller
     public function behaviors()
     {
         return [
+            'cache' => [
+                'class' => PageCache::class,
+                'duration' => 24*60*60,
+                'only' => ['about']
+            ],
+            'http_cache' => [
+                'class' => HttpCache::class,
+                'only' => ['about'],
+                'lastModified' => function() {
+                    return date("Y-m-d");
+                }
+            ],
             'access' => [
                 'class' => AccessControl::className(),
                 'only' => ['logout'],
