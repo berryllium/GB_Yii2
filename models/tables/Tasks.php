@@ -12,7 +12,7 @@ use Yii;
  * @property string|null $description
  * @property int|null $creator_id
  * @property int|null $responsible_id
- * @property string|null $deadline
+ * @property date|null $deadline
  * @property int|null $status_id
  * @property Status $status
  * @property Users $creator
@@ -36,7 +36,7 @@ class Tasks extends \yii\db\ActiveRecord
         return [
             [['title'], 'required'],
             [['creator_id', 'responsible_id', 'status_id'], 'integer'],
-            [['deadline'], 'safe'],
+            [['deadline'], 'date', 'format' => 'yyyy-mm-dd'],
             [['title', 'description'], 'string', 'max' => 255],
         ];
     }
@@ -62,7 +62,22 @@ class Tasks extends \yii\db\ActiveRecord
     public function getCreator() {
         return $this->hasOne(Users::class, ['id' => 'creator_id']);
     }
+    
     public function getResponsible() {
         return $this->hasOne(Users::class, ['id' => 'responsible_id']);
     }
+
+    public function getCreators() {
+        return Users::find()->select(['id', 'name'])->asArray()->all();
+    }
+
+    public function getResponsibles() {
+        return Users::find()->select(['id', 'name'])->asArray()->all();
+    }
+
+    public function getStatuses() {
+        return Status::find()->select(['status', 'description'])->asArray()->all();
+    }
+
+
 }
