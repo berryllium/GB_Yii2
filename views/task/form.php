@@ -23,34 +23,39 @@ use kartik\date\DatePicker;
                 'pluginOptions' => [
                     'format' => 'yyyy-mm-dd',
                     'todayHighlight' => true
-                    ]
-                    ]); ?>
+                ]
+            ]); ?>
         </div>
     </div>
-    
+
     <div class="row">
         <div class="col-sm-6"><?= $form->field($model, 'creator_id')->dropDownList(ArrayHelper::map($model->creators, 'id', 'name'), ['prompt' => 'Выберите автора']) ?></div>
         <div class="col-sm-6"><?= $form->field($model, 'responsible_id')->dropDownList(ArrayHelper::map($model->responsibles, 'id', 'name'), ['prompt' => 'Выберите исполнителя']) ?></div>
     </div>
-    
+
     <?= $form->field($model, 'description')->textarea(['maxlength' => true]) ?>
-    
+
     <div class="row">
         <div class="col-sm-6">
             <?= $form->field($model, 'status_id')->dropDownList(ArrayHelper::map($model->statuses, 'status', 'description'), ['prompt' => 'Выберите статус']) ?>
         </div>
-        
-        <div class="form-group col-sm-12">
-            <?= Html::submitButton('Сохранить', ['class' => 'btn btn-success']) ?>
-            <?= Html::a('Delete', ['delete', 'id' => $model->id], [
-            'class' => 'btn btn-danger',
-            'data' => [
-                'confirm' => 'Вы уверены, что хотите удалить задачу?',
-                'method' => 'post',
-            ],
-        ]) ?>
+        <div class="col-sm-6">
+            <?= $form->field($model, 'image')->fileInput() ?>
         </div>
     </div>
-    <?php ActiveForm::end(); ?>
-    
+    <div class="row">
+        <div class="form-group col-sm-12">
+            <?= Html::submitButton('Сохранить', ['class' => 'btn btn-success']) ?>
+            <?= Html::a('Удалить', ['delete', 'id' => $model->id], [
+                'class' => 'btn btn-danger',
+                'data' => [
+                    'confirm' => 'Вы уверены, что хотите удалить задачу?',
+                    'method' => 'post',
+                ],
+            ]) ?>
+        </div>
+    </div>
+</div>
+<?php ActiveForm::end(); ?>
+<?= Html::img(Yii::$app->urlManager->createUrl('images/small/' . $model->image)) ?>
 </div>

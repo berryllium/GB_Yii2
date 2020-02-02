@@ -3,6 +3,7 @@
 namespace app\models\tables;
 
 use Yii;
+use yii\imagine\Image;
 
 /**
  * This is the model class for table "tasks".
@@ -14,6 +15,7 @@ use Yii;
  * @property int|null $responsible_id
  * @property date|null $deadline
  * @property int|null $status_id
+ * @property string|null $image
  * @property Status $status
  * @property Users $creator
  * @property Users $responsible
@@ -38,6 +40,7 @@ class Tasks extends \yii\db\ActiveRecord
             [['creator_id', 'responsible_id', 'status_id'], 'integer'],
             [['deadline'], 'date', 'format' => 'yyyy-mm-dd'],
             [['title', 'description'], 'string', 'max' => 255],
+            [['image'], 'image']
         ];
     }
 
@@ -54,7 +57,16 @@ class Tasks extends \yii\db\ActiveRecord
             'responsible_id' => 'Ответственный',
             'deadline' => 'Срок',
             'status_id' => 'Статус',
+            'image' => 'Фото'
         ];
+    }
+    public function upload() {
+        $filepath = Yii::getAlias("@app/web/images/{$this->image->name}");
+        $this->image->saveAs($filepath);
+        Image::thumbnail($filepath, 150, 150)
+            ->save(Yii::getAlias("@app/web/images/small/{$this->image->name}"));
+        $this->image = $this->image->name;
+        $this->save();
     }
     public function getStatus() {
         return $this->hasOne(Status::class, ['id' => 'status_id']);

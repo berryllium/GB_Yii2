@@ -8,6 +8,7 @@ use yii\data\ActiveDataProvider;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\web\UploadedFile;
 
 class TaskController extends Controller
 {
@@ -63,7 +64,9 @@ class TaskController extends Controller
   {
     $model = $this->findModel($id);
 
-    if ($model->load(Yii::$app->request->post()) && $model->save()) {
+    if ($model->load(Yii::$app->request->post())) {
+      $model->image = UploadedFile::getInstance($model, 'image');
+      $model->upload();
       return $this->redirect(['update', 'id' => $model->id]);
     }
 
