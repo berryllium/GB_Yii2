@@ -4,6 +4,7 @@ namespace app\controllers;
 
 use Yii;
 use app\models\tables\Tasks;
+use app\models\tables\Users;
 use app\models\filters\TasksFilter;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;

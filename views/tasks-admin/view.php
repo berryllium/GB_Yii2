@@ -2,7 +2,6 @@
 
 use yii\helpers\Html;
 use yii\widgets\DetailView;
-
 /* @var $this yii\web\View */
 /* @var $model app\models\tables\Tasks */
 
@@ -32,10 +31,19 @@ $this->params['breadcrumbs'][] = $this->title;
             'id',
             'title',
             'description',
-            'creator_id',
-            'responsible_id',
+            [
+                'label' => 'Автор',
+                'value' => $model->creator->name
+            ],
+            [
+                'label' => 'Исполнитель',
+                'value' => $model->responsible->name
+            ],
             'deadline',
-            'status_id',
+            [
+                'label' => 'Статус',
+                'value' => $model->status->description
+            ],
         ],
     ]) ?>
 

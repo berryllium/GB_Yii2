@@ -12,6 +12,7 @@ use Yii;
  * @property string $name
  * @property string|null $password
  * @property string $role
+ * @property string $email
  */
 class Users extends \yii\db\ActiveRecord
 {
@@ -30,6 +31,7 @@ class Users extends \yii\db\ActiveRecord
     {
         return [
             [['name', 'role'], 'required'],
+            [['email'], 'email'],
             [['login', 'name', 'role'], 'string', 'max' => 255],
             [['password'], 'string', 'max' => 32],
         ];
@@ -47,6 +49,7 @@ class Users extends \yii\db\ActiveRecord
             'name' => 'Имя',
             'password' => 'Пароль',
             'role' => 'Категория',
+            'email' => 'email',
         ];
     }
 
@@ -54,7 +57,8 @@ class Users extends \yii\db\ActiveRecord
         return [
             'id',
             'username' => 'login',
-            'password'
+            'password',
+            'email'
         ];
     }
 }
