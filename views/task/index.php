@@ -2,17 +2,11 @@
 
 use app\models\tables\Tasks;
 use yii\widgets\ListView;
-use yii\data\ActiveDataProvider;
 use yii\helpers\Html;
 
 $this->registerCssFile('../css/task.css');
 
-$dataProvider = new ActiveDataProvider([
-  'query' => Tasks::find(),
-  'pagination' => [
-      'pageSize' => 5
-  ]
-]);
+// echo Html::
 
 echo ListView::widget([
   'dataProvider' => $dataProvider,
