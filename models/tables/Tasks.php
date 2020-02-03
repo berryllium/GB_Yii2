@@ -51,13 +51,13 @@ class Tasks extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'title' => 'Название',
-            'description' => 'Описание',
-            'creator_id' => 'Автор',
-            'responsible_id' => 'Ответственный',
-            'deadline' => 'Срок',
-            'status_id' => 'Статус',
-            'image' => 'Фото'
+            'title' => Yii::t('app', 'title'),
+            'description' => Yii::t('app', 'desc'),
+            'creator_id' => Yii::t('app', 'author'),
+            'responsible_id' => Yii::t('app', 'resp'),
+            'deadline' => Yii::t('app', 'deadline'),
+            'status_id' => Yii::t('app', 'status'),
+            'image' => Yii::t('app', 'photo')
         ];
     }
     public function upload() {

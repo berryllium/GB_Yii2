@@ -17,6 +17,10 @@ class TaskController extends Controller
    */
   public function behaviors()
   {
+    // проверяем установлен ли язык пользователем
+    if (isset($_GET['lang'])) $_SESSION['language'] = $_GET['lang'];
+    if (!Yii::$app->language = $_SESSION['language']) Yii::$app->language = 'ru';
+
     return [
       'verbs' => [
         'class' => VerbFilter::className(),

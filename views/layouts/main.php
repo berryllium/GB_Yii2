@@ -38,6 +38,10 @@ AppAsset::register($this);
     echo Nav::widget([
         'options' => ['class' => 'navbar-nav navbar-right'],
         'items' => [
+            ['label' => 'Language', 'items' => [
+                ['label' => 'Russian', 'url' => ['?lang=ru']],
+                ['label' => 'English', 'url' => ['?lang=en']],
+            ]],
             ['label' => 'Task-tracker', 'url' => ['/task']],
             ['label' => 'Home', 'url' => ['/site/index']],
             ['label' => 'About', 'url' => ['/site/about']],
