@@ -8,6 +8,7 @@ use yii\data\ActiveDataProvider;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\web\UploadedFile;
 
 class TaskController extends Controller
 {
@@ -16,6 +17,10 @@ class TaskController extends Controller
    */
   public function behaviors()
   {
+    // проверяем установлен ли язык пользователем
+    if (isset($_GET['lang'])) $_SESSION['language'] = $_GET['lang'];
+    if (!Yii::$app->language = $_SESSION['language']) Yii::$app->language = 'ru';
+
     return [
       'verbs' => [
         'class' => VerbFilter::className(),
@@ -63,7 +68,9 @@ class TaskController extends Controller
   {
     $model = $this->findModel($id);
 
-    if ($model->load(Yii::$app->request->post()) && $model->save()) {
+    if ($model->load(Yii::$app->request->post())) {
+      $model->image = UploadedFile::getInstance($model, 'image');
+      $model->upload();
       return $this->redirect(['update', 'id' => $model->id]);
     }
 
