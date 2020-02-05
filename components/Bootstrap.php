@@ -14,22 +14,17 @@ class Bootstrap extends Component implements BootstrapInterface {
     
     $model = new Tasks;
    Event::on(Tasks::class, Tasks::EVENT_AFTER_INSERT, function ($event) {
+     $task = $event->sender;
+     $mailto = Users::findOne($task->responsible_id)->email;
+     $subj = $task->title;
+     $text = $task->description;
     Yii::$app->mailer->compose()
     ->setFrom('from@domain.com')
-    ->setTo('to@domain.com')
-    ->setSubject('Тема сообщения')
-    ->setTextBody('Текст сообщения')
-    ->setHtmlBody('<b>текст сообщения в формате HTML</b>')
+    ->setTo($mailto)
+    ->setSubject($subj)
+    ->setTextBody($text)
+    ->setHtmlBody($text)
     ->send();
-
-      // $mail = $event->sender;
-      // $to = Users::findOne($mail->responsible_id)->email;
-      // Yii::$app->mailer->compose()
-      //     ->setFrom('from@domain.com')
-      //     ->setTo($to)
-      //     ->setSubject($mail->title)
-      //     ->setTextBody("<b>$mail->description</b")
-      //     ->send();
   });
   }
 }
