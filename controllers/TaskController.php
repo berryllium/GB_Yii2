@@ -32,13 +32,8 @@ class TaskController extends Controller
   }
   public function actionIndex($month = null)
   {
-    $query = Tasks::find();
-    if (!is_null($month)) {
-      $query->where('MONTH(deadline) = :month', [':month' => $month]);
-    }
-
     $dataProvider = new ActiveDataProvider([
-      'query' => $query,
+      'query' => Tasks::getMonthProvider($month),
       'pagination' => [
         'pageSize' => 5
       ]

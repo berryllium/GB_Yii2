@@ -60,7 +60,8 @@ class Tasks extends \yii\db\ActiveRecord
             'image' => Yii::t('app', 'photo')
         ];
     }
-    public function upload() {
+    public function upload()
+    {
         $filepath = Yii::getAlias("@app/web/images/{$this->image->name}");
         $this->image->saveAs($filepath);
         Image::thumbnail($filepath, 150, 150)
@@ -68,28 +69,61 @@ class Tasks extends \yii\db\ActiveRecord
         $this->image = $this->image->name;
         $this->save();
     }
-    public function getStatus() {
+    public function getStatus()
+    {
         return $this->hasOne(Status::class, ['id' => 'status_id']);
     }
-    public function getCreator() {
+    public function getCreator()
+    {
         return $this->hasOne(Users::class, ['id' => 'creator_id']);
     }
-    
-    public function getResponsible() {
+
+    public function getResponsible()
+    {
         return $this->hasOne(Users::class, ['id' => 'responsible_id']);
     }
 
-    public function getCreators() {
+    public function getCreators()
+    {
         return Users::find()->select(['id', 'name'])->asArray()->all();
     }
 
-    public function getResponsibles() {
+    public function getResponsibles()
+    {
         return Users::find()->select(['id', 'name'])->asArray()->all();
     }
 
-    public function getStatuses() {
+    public function getStatuses()
+    {
         return Status::find()->select(['status', 'description'])->asArray()->all();
     }
 
+    public function getMonths()
+    {
+        return [
+            '1' => Yii::t('app', 'm_1'),
+            '2' => Yii::t('app', 'm_2'),
+            '3' => Yii::t('app', 'm_3'),
+            '4' => Yii::t('app', 'm_4'),
+            '5' => Yii::t('app', 'm_5'),
+            '6' => Yii::t('app', 'm_6'),
+            '7' => Yii::t('app', 'm_7'),
+            '8' => Yii::t('app', 'm_8'),
+            '9' => Yii::t('app', 'm_9'),
+            '10' => Yii::t('app', 'm_10'),
+            '11' => Yii::t('app', 'm_11'),
+            '12' => Yii::t('app', 'm_12'),
+        ];
+    }
 
+    public function getMonthProvider($month)
+    {
+        $query = static::find();
+
+        if (!is_null($month)) {
+            return $query->where('MONTH(deadline) = :month', [':month' => $month]);
+        } else {
+            return $query;
+        }
+    }
 }
