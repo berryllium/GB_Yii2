@@ -59,7 +59,10 @@ $config = [
         'urlManager' => [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
-            'rules' => [],
+            'rules' => [
+                'tasks/<id>' => 'task/update',
+                '<controller>/<action>' => '<controller>/<action>'
+            ],
         ],
 
     ],
