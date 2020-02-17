@@ -5,6 +5,7 @@ namespace app\controllers;
 use Yii;
 use app\models\tables\Tasks;
 use yii\data\ActiveDataProvider;
+use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -28,6 +29,17 @@ class TaskController extends Controller
           'delete' => ['POST'],
         ],
       ],
+      'access' => [
+        'class' => AccessControl::class,
+        'only' => ['update'],
+        'rules' => [
+          [
+            'actions' => ['update'],
+            'allow' => true,
+            'roles' => ['admin']
+          ]
+        ]
+      ]
     ];
   }
   public function actionIndex($month = null)
@@ -39,7 +51,7 @@ class TaskController extends Controller
       ]
     ]);
 
-    \Yii::$app->db->cache(function() use ($dataProvider){
+    \Yii::$app->db->cache(function () use ($dataProvider) {
       return $dataProvider->prepare();
     });
 
