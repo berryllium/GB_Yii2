@@ -126,4 +126,30 @@ class Tasks extends \yii\db\ActiveRecord
             return $query;
         }
     }
+
+    public function sendMailExpiringTasks($time)
+    {
+        $status = true;
+        
+        $tasks = static::find()
+        ->where('deadline BETWEEN DATE_SUB(CURDATE(), INTERVAL :time HOUR) AND CURDATE()', [':time' => $time])
+        ->select('title, responsible_id')
+        ->all();
+        
+        foreach ($tasks as $task) {
+
+            $text = "До окончания срока выполнения задачи \"{$task->title}\" осталось меньше 24 часов";
+
+            if (
+                !Yii::$app->mailer->compose()
+                    ->setFrom('from@domain.com')
+                    ->setTo($task->responsible->email)
+                    ->setSubject('Deadline')
+                    ->setTextBody($text)
+                    ->setHtmlBody($text)
+                    ->send()
+            ) $status = false;
+        }
+        return $status;
+    }
 }

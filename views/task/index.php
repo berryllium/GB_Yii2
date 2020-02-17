@@ -3,8 +3,10 @@
 use app\models\tables\Tasks;
 use yii\widgets\ListView;
 use yii\helpers\Html;
+use app\assets\TaskAsset;
 
-$this->registerCssFile('../css/task.css');
+TaskAsset::register($this);
+
 
 echo Html::beginForm('', 'get', ['class' => 'row']);
 echo Html::label(Yii::t('app', 'f_month'), 'month', ['class' => 'col-sm-3']);

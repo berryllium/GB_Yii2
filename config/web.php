@@ -56,10 +56,17 @@ $config = [
         ],
         'db' => $db,
 
+        'authManager' => [
+            'class' => \yii\rbac\DbManager::class
+        ],
+
         'urlManager' => [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
-            'rules' => [],
+            'rules' => [
+                'tasks/<id>' => 'task/update',
+                '<controller>/<action>' => '<controller>/<action>'
+            ],
         ],
 
     ],
